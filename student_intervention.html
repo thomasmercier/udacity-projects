@@ -11852,14 +11852,14 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Calculate number of students</span>
 <span class="n">n_students</span> <span class="o">=</span> <span class="n">student_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
 <span class="c1"># Calculate number of features</span>
-<span class="n">n_features</span> <span class="o">=</span> <span class="n">student_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">n_features</span> <span class="o">=</span> <span class="n">student_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span>
 
 <span class="c1"># Calculate passing students</span>
 <span class="n">n_passed</span> <span class="o">=</span> <span class="n">student_data</span><span class="p">[</span><span class="s1">&#39;passed&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()[</span><span class="s1">&#39;yes&#39;</span><span class="p">]</span>
@@ -11889,7 +11889,7 @@ div#notebook {
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Total number of students: 395
-Number of features: 31
+Number of features: 30
 Number of students who passed: 265
 Number of students who failed: 130
 Graduation rate of the class: 67.09%
@@ -12149,7 +12149,7 @@ Testing set has 95 samples.
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer: </strong>Given the number of features and the amount of data, I will try using Decision Trees, Gaussian Naive Bayes and Logistic Regression.</p>
+<p><strong>Answer: </strong>Given the number of features and the amount of data, I will try using Decision Trees, Gaussian Naive Bayes and Logistic Regression. I decided not to use any ensemble method because I beleive it is not very relevant to compare these very powerful models to simpler ones before any optimization. I decided not to use K-NN or SVM because I am afraid that they will suffer from the curse of dimensionality due to the data having 30 features and only 300 training samples. Finally, I do not think using stochastic methods is relevant given the small size of the data set.</p>
 <p>Decision Trees are a popular classifier that has many real-world. It has been successfully applied in astrophysics to classify astral objects as stars or galaxies [1]. It can handle various data structures and outputs. For our problem, decision trees would not have required to create "dummy" features. It is also a very intuitive model. On the downside, it is common to create complex trees that overfit the data. By limiting the complexity/depth of the tree, I hope to be able to limit the variance in this precise problem.</p>
 <p>Gaussian Naive Bayes model is based on the assumption of conditional independance between the features. Although this is absolutely false with the dummy features ("sex_M" and "sex_F" are completely correlated), the models could still give good reasults. It performs well with both small and large datasets. It has successfully been applied in biochemistry [2].</p>
 <p>Logistic Regression is a type of linear classifier. The basic algorithm works only for binaly classification. Logistic regression only works if the border between the two classes can be approximated by a hyperplane in the feature space. It has been applied to various real-world problems including automatic fraud detection in auditing [3].</p>
@@ -12543,7 +12543,7 @@ F1 score for test set: 0.8060.
 <li>Logistic Regrassion trained with 300 samples</li>
 </ul>
 <p>It is likely that the good result obtained with the Naive Bayes model is not relevant and only comes from a random fluctuation. Indeed, training over more samples should improve the F1 score which is not the case here. We can verify this statement by changing the random state in the operation that splits the data set into a training and a test set. Replacing <em>rand_state=42</em> with <em>rand_state=0</em> at this point give an F1 score of 0.7481 for this model. On the other hand, the logistic regression has a "nice" behavior: the more data is used for training, the better the F1 score. The decision tree model clearly shows an overfitting behavior. This could be improved by limiting the depth of the tree but the idea here is to compare the different models before any parameter optimization.</p>
-<p>The computation times are very small for every operation. It also changes a lot with the <em>rand_state</em>. I do not consider that it constitutes a relevant parameter to choose between the models in this situation. To conclude, I will be working with the Gaussian Naive Bayes model.</p>
+<p>The computation times are very small for every operation. It also changes a lot with the <em>rand_state</em>. I do not consider that it constitutes a relevant parameter to choose between the models in this situation. To conclude, I will be working with the Logistic Regression model.</p>
 
 </div>
 </div>
@@ -12563,7 +12563,7 @@ F1 score for test set: 0.8060.
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer: </strong> The logistic regression model is a classifier that finds an optimal border betweem the data that corresponds to one class or the other. It learns how features are correlated with the classification and weigth them depending on the strength of the correlation.</p>
+<p><strong>Answer: </strong> The logistic regression model is a classifier that finds an optimal border betweem the data that corresponds to one class or the other. It learns the relationship between the value of the features and the class the sample belongs to. It also weigth the different features depending on the strength of the dependance between its value and the resulting class.</p>
 
 </div>
 </div>
